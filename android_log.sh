@@ -14,6 +14,19 @@ declare -A ERROR_MESSAGES=(
   [10]=" "
 )
 
+# Funtion to create Folder for logs.
+create_base_folder(){
+    # Get the home directory
+    home_directory=$(echo $HOME)
+
+    # Create the "logs" folder
+    logs_folder="$home_directory/logs"
+    mkdir -p "$logs_folder"
+
+    # Print the path of the created folder
+    echo "Logs folder created at: $logs_folder"
+}
+
 # Function to remove whitespace from a string
 remove_whitespace() {
     input_string="$1"
@@ -97,12 +110,12 @@ process_arguments() {
     filename="logcat"
   fi
    echo "Filename post: "$filename
-  divider=""
-  date=$(date +%Y%m%d%H%M%S)
+  divider="_"
+  file_divider="/"
+  date=$(date +%Y%m%d-%H%M%S)
   extension=".log"
   filename=$filename$divider$date$extension
-  finalFolderName="/media/kneeraj/HDD/logs/"
-  full_file_path=$finalFolderName$foldername/$filename
+  full_file_path=$logs_folder$file_divider$foldername$file_divider$filename
 
   echo $full_file_path
 }
@@ -126,6 +139,7 @@ take_logcat() {
 }
 
 main() {
+  create_base_folder
   check_adb_installed || return 1
   get_connected_devices || return 2
   select_device || return 8
@@ -135,3 +149,5 @@ main() {
 }
 
 main $1
+
+
