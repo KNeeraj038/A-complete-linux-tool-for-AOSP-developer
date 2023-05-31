@@ -5,7 +5,7 @@ nrj_connect_to_vpn(){
     # Set the required inputs
     local username="<user_name>"
     local password="<pwd>"
-    local domain="<domain_name>"
+    local domain="LocalDomain"
     local server="14.97.141.34:4433"
 
     # Run the NetExtender executable with the provided inputs
