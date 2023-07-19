@@ -37,6 +37,20 @@ va_asp() {
   adb root && adb shell setprop $prop $value
 }
 
+va_ad() {
+
+   if [ "$#" -ne 1 ]; then
+       adb shell dumpsys
+   fi
+   
+   if [ "$1" == "-l" ]
+   then
+         adb shell dumpsys -l
+   else
+         adb shell dumpsys $1
+   fi
+}
+
 va_update() {
     if [ "$1" == "--help" ] ; then
         echo "\nUsage: iw_perform_ota [OPTIONS/PATH]
