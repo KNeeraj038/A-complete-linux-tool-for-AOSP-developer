@@ -23,3 +23,14 @@ nrj_start_log(){
 
     bash android_log.sh "$filename"
 }
+
+aosp_agp(){
+
+   adb shell getprop
+}
+
+aosp_asp(){
+
+  adb shell setprop $1 $2
+}
+~
