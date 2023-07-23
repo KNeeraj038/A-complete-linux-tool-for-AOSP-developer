@@ -1,9 +1,34 @@
 #!/bin/bash
 
+ini_file="config.ini"
+
+# Function to read values from the INI file
+function read_ini {
+    local section="$1"
+    local key="$2"
+
+    # Use awk to read the value from the INI file
+    awk -F= -v section="$section" -v key="$key" '
+        $1 == "[" section "]" {
+            in_section = 1
+            next
+        }
+        in_section && $1 == key {
+            print $2
+            exit
+        }
+        in_section && /^\[.*\]/ {
+            # If we reach the next section, stop looking
+            exit
+        }
+    ' "$ini_file"
+}
+
 nrj_connect_to_vpn(){
-    # Set the required inputs
-    local username="<id>"
-    local password="<pwd>"
+
+   # Read the username and password from the INI file
+    local username=$(read_ini "Credentials" "username")
+    local password=$(read_ini "Credentials" "password")
     local domain="LocalDomain"
     local server="14.97.141.34:4433"
 
@@ -34,7 +59,7 @@ va_agp() {
 va_asp() {
   local prop=$1
   local value=$2
-  
+
   adb root && adb shell setprop $prop $value
 }
 
@@ -42,7 +67,7 @@ va_ad() {
    if [ "$#" -ne 1 ]; then
        adb shell dumpsys
    fi
-   
+
    if [ "$1" == "-l" ]
    then
          adb shell dumpsys -l
