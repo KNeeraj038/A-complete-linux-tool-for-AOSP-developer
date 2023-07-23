@@ -1,17 +1,20 @@
 #!/bin/bash
 
-
 nrj_connect_to_vpn(){
     # Set the required inputs
-    local username="<user_name>"
+    local username="<id>"
     local password="<pwd>"
     local domain="LocalDomain"
     local server="14.97.141.34:4433"
 
-    # Run the NetExtender executable with the provided inputs
-    netExtender --username "$username" --password "$password" -d "$domain" "$server"
-}
+    echo "Username: $username"
+    echo "Password: $password"
+    echo "Domain: $domain"
+    echo "Server: $server"
 
+    # Run the NetExtender executable with the provided inputs
+    netExtender --username $username --password $password -d $domain $server
+}
 
 nrj_start_log(){
     if [ -z "$1" ]
@@ -25,12 +28,10 @@ nrj_start_log(){
 }
 
 va_agp() {
-
    adb shell getprop
 }
 
 va_asp() {
-
   local prop=$1
   local value=$2
   
@@ -38,7 +39,6 @@ va_asp() {
 }
 
 va_ad() {
-
    if [ "$#" -ne 1 ]; then
        adb shell dumpsys
    fi
@@ -98,4 +98,16 @@ perform_non_ab_update() {
 
     echo "Rebooting ..."
     adb reboot recovery &
+}
+
+# Print all available commands and their working
+va_help() {
+    echo -e "\nAvailable commands:\n"
+    echo "nrj_connect_to_vpn : Connect to VPN using NetExtender"
+    echo "nrj_start_log      : Start Android logcat"
+    echo "va_agp             : Get Android device properties using adb shell getprop"
+    echo "va_asp             : Set Android device property using adb shell setprop"
+    echo "va_ad              : Get Android dumpsys information"
+    echo "va_update          : Pushes OTA to cache partition and installs the update (Root ADB connection required)"
+    echo "va_help            : Print this help information"
 }
