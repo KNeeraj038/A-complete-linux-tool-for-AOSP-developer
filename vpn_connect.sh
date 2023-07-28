@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set the required inputs
-username="kneeraj"
-password="Nrj9801223938NN"
+username="<username"
+password="<pwd>"
 domain="LocalDomain"
 server="14.97.141.34:4433"
 
