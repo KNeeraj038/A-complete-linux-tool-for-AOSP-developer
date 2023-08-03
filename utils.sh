@@ -81,7 +81,7 @@ va_update() {
         echo "\nUsage: iw_perform_ota [OPTIONS/PATH]
         \nPushes OTA to cache partition and installs update.
         \nTHIS REQUIRES ROOT ADB CONNECTION TO STB
-        \nExample: iw_perform_ota $OUT/OTA*.zip
+        \nExample: va_update $OUT/OTA*.zip
         \nOptions:
         \n\tPATH   : path to the OTA.zip file
         \n\t--help : prints this description"
@@ -123,6 +123,13 @@ perform_non_ab_update() {
 
     echo "Rebooting ..."
     adb reboot recovery &
+}
+
+
+s_build_info(){
+
+adb shell getprop |grep ro.build.fingerprint
+
 }
 
 # Print all available commands and their working
