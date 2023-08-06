@@ -19,7 +19,6 @@ nano ~/.bashrc
 
 4. Add the following line at the end of the file:
 ```bash
-example:
 export PATH="$HOME/bin/A-complete-linux-tool-for-AOSP-developer:$PATH"
 . utils.sh
 ```
