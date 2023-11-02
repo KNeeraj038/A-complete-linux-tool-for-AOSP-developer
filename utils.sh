@@ -142,4 +142,5 @@ va_help() {
     echo "va_ad              : Get Android dumpsys information"
     echo "va_update          : Pushes OTA to cache partition and installs the update (Root ADB connection required)"
     echo "va_help            : Print this help information"
+    echo "s_build_info       : Print fingerprint of the build"
 }
